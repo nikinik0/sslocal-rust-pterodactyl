@@ -1,13 +1,13 @@
-name: build python
+name: build shadowsocks-rust
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * 1"
   push:
     branches:
-      - master
+      - main
     paths:
-      - rust/**
+      - ss/**
 jobs:
   push:
     name: "nikinik:ss_${{ matrix.tag }}"
@@ -31,8 +31,8 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v5
         with:
-          context: ./rust
-          file: ./rust/${{ matrix.tag }}/Dockerfile
+          context: ./ss
+          file: ./ss/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
